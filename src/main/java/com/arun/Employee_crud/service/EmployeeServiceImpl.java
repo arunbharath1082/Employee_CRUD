@@ -23,7 +23,6 @@ public class EmployeeServiceImpl implements EmployeeService{
     public List<Employee> search(String q) {
         return employeeRepository.findByNameContaining(q);
     }
-
     @Override
     public Optional<Employee> findOne(int id) {
           return employeeRepository.findById(id);
@@ -38,5 +37,9 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public void delete(int id) {
         employeeRepository.deleteById(id);
+    }
+    @Override
+    public boolean existsByEmail(String email) {
+        return employeeRepository.findByEmail(email) != null;
     }
 }

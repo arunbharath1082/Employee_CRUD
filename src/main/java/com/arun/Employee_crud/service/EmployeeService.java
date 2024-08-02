@@ -15,4 +15,6 @@ public interface EmployeeService {
     void save(Employee contact);
 
     void delete(int id);
+
+    boolean existsByEmail(String email);
 }
