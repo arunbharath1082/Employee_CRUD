@@ -6,7 +6,7 @@ import lombok.Data;
 @Entity(name = "Employee")
 @Data
 public class Employee {
-//    private static final long serialVersionUID = 1L;
+
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

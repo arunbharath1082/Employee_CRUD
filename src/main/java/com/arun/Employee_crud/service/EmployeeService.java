@@ -8,13 +8,15 @@ import java.util.Optional;
 public interface EmployeeService {
     List<Employee> findAll();
 
-    List<Employee> search(String q);
+    Optional<List<Employee>> search(String q);
 
     Optional<Employee> findOne(int id);
 
-    void save(Employee contact);
+    String save(Employee contact);
 
-    void delete(int id);
+    String update(Employee contact);
+
+    String delete(int id);
 
     boolean existsByEmail(String email);
 }

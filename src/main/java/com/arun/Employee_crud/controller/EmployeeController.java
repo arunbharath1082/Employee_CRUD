@@ -34,12 +34,10 @@ public class EmployeeController {
         if ( employee.getEmail().isEmpty() || employee.getName().isEmpty()
                 || employee.getPhone().isEmpty())
         {
-                return ResponseEntity.badRequest().body("Name, Phone and Email are required!");
-        } else if (employeeService.existsByEmail(employee.getEmail())) {
-                return ResponseEntity.badRequest().body("Email already exists!");
+                return ResponseEntity.badRequest().body("Please fill all fields");
         }
-        employeeService.save(employee);
-                return ResponseEntity.ok("Employee Created Successfully!");
+        String save = employeeService.save(employee);
+        return ResponseEntity.ok(save);
     }
 
 
@@ -47,23 +45,18 @@ public class EmployeeController {
 
     @GetMapping("/employee/{id}/delete")
     public ResponseEntity<String> delete(@PathVariable int id) {
-
-        if (employeeService.findOne(id).isEmpty()) {
-            return ResponseEntity.notFound().build();
+        if (id == 0) {
+            return ResponseEntity.badRequest().body("Please provide an id");
         }
-
-        employeeService.delete(id);
-       return ResponseEntity.ok("Employee Deleted Successfully!");
+       return ResponseEntity.ok(employeeService.delete(id));
     }
 
     @GetMapping("/employee/search")
-    public ResponseEntity<List<Employee>> search(@RequestParam("s") String s) {
+    public ResponseEntity<Optional<List<Employee>>> search(@RequestParam("s") String s) {
         if (s.isEmpty()) {
               return ResponseEntity.badRequest().build();
         }
-        else if (employeeService.search(s).isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
+
         return ResponseEntity.ok(employeeService.search(s));
 
     }
@@ -75,7 +68,7 @@ public class EmployeeController {
             Employee e = emp.get();
             e.setName(employee.getName());
             e.setPhone(employee.getPhone());
-            employeeService.save(e);
+            employeeService.update(e);
             return ResponseEntity.ok("Employee Updated Successfully!");
         }
         return ResponseEntity.notFound().build();
