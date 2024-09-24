@@ -55,6 +55,7 @@ public class EmployeeController {
     public ResponseEntity<Optional<List<Employee>>> search(@RequestParam("s") String s) {
         if (s.isEmpty()) {
               return ResponseEntity.badRequest().build();
+
         }
 
         return ResponseEntity.ok(employeeService.search(s));
