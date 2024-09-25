@@ -56,6 +56,7 @@ public class EmployeeController {
         if (s.isEmpty()) {
               return ResponseEntity.badRequest().build();
 
+
         }
 
         return ResponseEntity.ok(employeeService.search(s));
